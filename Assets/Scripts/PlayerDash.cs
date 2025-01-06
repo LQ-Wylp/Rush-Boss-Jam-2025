@@ -13,12 +13,16 @@ public class PlayerDash : MonoBehaviour
     [Header("Dash Settings")]
 
     private bool isDashing = false;
-    [SerializeField] private float coefDash = 0;
+    private float coefDash = 0;
     [SerializeField] private float range = 1;
     [SerializeField] private float duration = 0.5f;
+    private float durationDash = 0;
     [SerializeField] private AnimationCurve dashSpeed;
-    [SerializeField] private Vector3 initialPos;
-    [SerializeField] private Vector3 finalPos;
+    private Vector3 initialPos;
+    private Vector3 finalPos;
+
+    [Header("Raycast Settings")]
+    [SerializeField] private LayerMask wallLayer;
 
     void Start()
     {
@@ -30,7 +34,7 @@ public class PlayerDash : MonoBehaviour
     void Update()
     {
         if(isDashing){
-            coefDash += Time.deltaTime / duration;
+            coefDash += Time.deltaTime / durationDash;
             if(coefDash >= 1){
                 coefDash = 1;
                 isDashing = false;
@@ -46,16 +50,30 @@ public class PlayerDash : MonoBehaviour
     {
         if(!isDashing)
         {
-            initialPos = playerTransform.position;
-
             Vector3 directionDash = new Vector3(playerMove.GetDirectionInput().x , 0 , playerMove.GetDirectionInput().y);
-            directionDash = directionDash.normalized;
 
-            finalPos = initialPos + (directionDash * range);
+            if(directionDash != Vector3.zero)
+            {
+                initialPos = playerTransform.position;
+                directionDash = directionDash.normalized;
 
-            playerMove.StopPhysics();
-            coefDash = 0;
-            isDashing = true;
+                RaycastHit hit;
+                if (Physics.Raycast(initialPos, directionDash, out hit, range, wallLayer))
+                {
+                    finalPos = hit.point;
+                    durationDash = duration * (Vector3.Distance(initialPos,finalPos) / Vector3.Distance(initialPos, (initialPos + (directionDash * range))));
+                    Debug.Log(durationDash);
+                }
+                else
+                {
+                    finalPos = initialPos + (directionDash * range);
+                    durationDash = duration;
+                }
+
+                playerMove.StopPhysics();
+                coefDash = 0;
+                isDashing = true;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public PlayerMove playerMove;
     public Transform playerTransform;
 
-    void Start()
+    void Awake()
     {
         if(GameManager.gameManager){
             Destroy(this);
