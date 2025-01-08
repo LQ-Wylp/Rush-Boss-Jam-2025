@@ -83,7 +83,18 @@
                 {
                     "name": "",
                     "id": "be964fee-b88b-4e5d-90de-d4b66a0d394e",
-                    "path": "<Keyboard>/numpadEnter",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61f53a6a-f2cd-4ce0-9099-2497228e221b",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
