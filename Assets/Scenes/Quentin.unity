@@ -456,10 +456,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9b15142e2a57e43aa43fe5cc5cfdfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRight: 0
-  speedRotation: 0.5
-  axeRotation: {fileID: 657075289}
-  affectPlayer: 1
+  rotatingObject: {fileID: 587291870}
+  movingObject: {fileID: 59067536}
+  pivotPoint: {fileID: 657075289}
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 30
+  affectePlayer: 1
+  offset: {x: 0, y: 1, z: 0}
 --- !u!1 &595743934
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,35 +6,24 @@ public class GroundRotation : MonoBehaviour
 {
 
     [Header("Rotation Settings")]
-    [SerializeField] private bool turnRight = true;
-    [SerializeField] private float speedRotation = 1;
-    [SerializeField] private Transform axeRotation;
+    public Transform rotatingObject;
+    public Transform movingObject;
+    public Transform pivotPoint;
+    public Vector3 rotationAxis = Vector3.up;
+    public float rotationSpeed = 30f;
+    public bool affectePlayer = true;
 
-    [Header("Move Settings")]
-    private PlayerMove playerMove;
-    [SerializeField] private bool affectPlayer = true;
-    
-    void Start(){
-        playerMove = GameManager.gameManager.playerMove;
-    }
-    
+    [Header("Offset Settings")]
+    public Vector3 offset = new Vector3(0, 1, 0);
+
     void Update()
     {
-        if(affectPlayer)
-        {
-            playerMove.AddVelocity(AddOrbitVelocity(playerMove.transform));
-        }
-    }
+        rotatingObject.RotateAround(pivotPoint.position, rotationAxis, rotationSpeed * Time.deltaTime);
 
-    public Vector2 AddOrbitVelocity(Transform ObjectTransform)
-    {
-        Vector3 directionToCenter = axeRotation.position - ObjectTransform.position;
-        directionToCenter.y = 0;
-        Vector3 tangent = Vector3.Cross(directionToCenter.normalized, Vector3.up); 
-        Vector3 orbitVelocity = tangent * speedRotation * Time.deltaTime;
-        if(!turnRight){
-            return new Vector2(orbitVelocity.x, orbitVelocity.z) * -1;
+        if(affectePlayer)
+        {
+            movingObject.RotateAround(pivotPoint.position, rotationAxis, rotationSpeed * Time.deltaTime);
         }
-        return new Vector2(orbitVelocity.x, orbitVelocity.z);
+        
     }
 }
