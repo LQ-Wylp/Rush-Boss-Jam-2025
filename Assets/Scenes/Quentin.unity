@@ -463,6 +463,10 @@ MonoBehaviour:
   rotationSpeed: 30
   affectePlayer: 1
   offset: {x: 0, y: 1, z: 0}
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  collisionRadius: 0.5
 --- !u!1 &595743934
 GameObject:
   m_ObjectHideFlags: 0

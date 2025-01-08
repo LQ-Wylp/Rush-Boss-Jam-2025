@@ -16,14 +16,29 @@ public class GroundRotation : MonoBehaviour
     [Header("Offset Settings")]
     public Vector3 offset = new Vector3(0, 1, 0);
 
+     [Header("Collision Settings")]
+    public LayerMask collisionLayer; // Les couches à considérer pour les collisions
+    public float collisionRadius = 0.5f; // Rayon de détection des collisions
+
     void Update()
     {
         rotatingObject.RotateAround(pivotPoint.position, rotationAxis, rotationSpeed * Time.deltaTime);
 
         if(affectePlayer)
         {
+            Vector3 previousPosition = movingObject.position;
+            Quaternion previousQuarternion = movingObject.rotation;
             movingObject.RotateAround(pivotPoint.position, rotationAxis, rotationSpeed * Time.deltaTime);
+            Vector3 newPosition = movingObject.position;
+            if (!Physics.CheckSphere(newPosition, collisionRadius, collisionLayer))
+            {
+                movingObject.position = newPosition;
+            }
+            else
+            {
+                movingObject.position = previousPosition;
+                movingObject.rotation = previousQuarternion;
+            } 
         }
-        
     }
 }
