@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GroundRotation : MonoBehaviour
@@ -22,6 +23,8 @@ public class GroundRotation : MonoBehaviour
 
     void Update()
     {
+        quaternion initialRotatePlayer = movingObject.transform.rotation;
+        
         rotatingObject.RotateAround(pivotPoint.position, rotationAxis, rotationSpeed * Time.deltaTime);
 
         if(affectePlayer)
@@ -40,5 +43,7 @@ public class GroundRotation : MonoBehaviour
                 movingObject.rotation = previousQuarternion;
             } 
         }
+
+        movingObject.transform.rotation = initialRotatePlayer;
     }
 }
