@@ -8,7 +8,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Player Settings")]
     public PlayerMove playerMove;
+    public PlayerNote playerNote;
     public Transform playerTransform;
+
+    [Header("Boss Settings")]
+    public Transform bossTransform;
+    public BossHit bossHit;
 
     void Awake()
     {
